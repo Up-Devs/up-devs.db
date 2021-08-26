@@ -533,7 +533,7 @@ startsWith(keywords) {
 
 /**
  * Filters this database.
- * @param {(value: DBData, index: number, array: Array<DBData>) => boolean} filter
+ * @param {*} filter
  * @returns {Array|DBData[]}
  * @example
  * //Filters with a function.
@@ -545,7 +545,7 @@ filter(filter) {
 
 /**
  * Sorts this database.
- * @param {(a: DBData, b: DBData) => number} sort
+ * @param {*} sort
  * @returns {DBData[]}
  */
 sort(sort) {
@@ -563,7 +563,7 @@ destroy() {
 
 /**
  *
- * @param {(element: DBData, provider: this) => boolean} find
+ * @param {*} find
  * @returns {number}
  */
 findAndDelete(find) {
