@@ -4,8 +4,13 @@
   "description": "An useful data-base for your projects. Helpful for storing your datas.",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs",
+    "docs": "docgen --source src --custom docs/index.yml --output docs/docs.json",
+    "docs:devbuild": "docgen --source src --custom docs/index.yml --output docs/dev.json",
+    "docs:build": "docgen --source src --custom docs/index.yml --output docs/main.json",
+    "docs:test": "docgen --source src"
+  }, 
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Up-Devs/updev.db.git"
