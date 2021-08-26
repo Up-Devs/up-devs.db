@@ -1,0 +1,31 @@
+{
+  "name": "updev.db",
+  "version": "0.0.1",
+  "description": "An useful data-base for your projects. Helpful for storing your datas.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Up-Devs/updev.db.git"
+  },
+  "keywords": [
+    "database",
+    "projects",
+    "json",
+    "mongo",
+    "db",
+    "up"
+  ],
+  "author": "Alpu TV",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Up-Devs/updev.db/issues"
+  },
+  "homepage": "https://github.com/Up-Devs/updev.db#readme",
+  "dependencies": {
+    "fs": "^0.0.1-security",
+    "lodash": "^4.17.21"
+  }
+}
