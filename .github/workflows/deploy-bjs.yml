@@ -4,8 +4,6 @@ on:
     branches:
       - '*'
       - '!docs'
-      - '!gh-pages'
-      - '!web'
     tags:
       - '*'
 jobs:
