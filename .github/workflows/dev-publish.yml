@@ -21,7 +21,7 @@ jobs:
 
       - name: Deprecate old versions
         run: |
-          npm deprecate brawlup.js@"~$(jq --raw-output '.version' package.json)" "No longer supported" || true
+          npm deprecate up-devs.db@"~$(jq --raw-output '.version' package.json)" "No longer supported" || true
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
