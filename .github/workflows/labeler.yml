@@ -1,0 +1,40 @@
+name: Labeler
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/labels.yml'
+jobs:
+  labeler:
+    name: Labeler
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Run Labeler
+        uses: crazy-max/ghaction-github-labeler@v3
+        with:
+          github-token: ${{ secrets.ACCESS_TOKEN }}
+  label-approved:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: docker://tiangolo/label-approved:0.0.2
+      with:
+        token: ${{ secrets.ACCESS_TOKEN }}
+        config: >
+          {
+            "review: waiting":
+              {
+                "number": 0
+              },
+            "review: approved":
+              {
+                "number": 1,
+                "await_label": "review: waiting"
+              }
+          }
