@@ -5,7 +5,7 @@ class UpError extends Error {
     /**
      * 
      * @param {string} message - This error's message
-     * @param {string} [type='TypeError'] - This error's type (RangeError, ReferenceError etc).
+     * @param {string} [type=TypeError] - This error's type (RangeError, ReferenceError etc).
      */
     constructor(message, type) {
     super();
