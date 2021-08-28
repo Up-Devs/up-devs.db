@@ -524,6 +524,7 @@ includes(keywords) {
  * Searches for a key in this database starts with this.
  * @param {string} keywords - The key (or keywords) to search.
  * @returns {Array<DBData>}
+ * @example
  * //Searches for: updev.db
  * db.startsWith("up")
  */
@@ -547,6 +548,9 @@ filter(filter) {
  * Sorts this database.
  * @param {*} sort
  * @returns {DBData[]}
+ * @example
+ * //Sorts with a function.
+ * db.sort((a, b) => b.value < a.value);
  */
 sort(sort) {
     return this.all().sort(sort);
