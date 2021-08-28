@@ -56,7 +56,7 @@ constructor(dbName) {
     }
 
     /**
-     * Data-base location path.
+     * This data-base's location path.
      * @type {string}
      * @private
      */
