@@ -1,6 +1,6 @@
 ---
 name: Bug report
-about: Report an unexpected behaviour of brawlup.js
+about: Report an unexpected behaviour of UpDevs.DB
 title: ''
 labels: 'type: bug'
 assignees: ''
