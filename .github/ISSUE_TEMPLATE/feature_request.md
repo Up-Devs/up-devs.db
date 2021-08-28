@@ -1,7 +1,7 @@
 ---
 
 name: Feature request
-about: Request a feature for brawlup.js library
+about: Request a feature for UpDevs.DB library
 title: ''
 labels: 'type: idea'
 assignees: ''
