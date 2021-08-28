@@ -1,5 +1,5 @@
 {
-  "name": "updev.db",
+  "name": "up-devs.db",
   "version": "0.0.1",
   "description": "An useful data-base for your projects. Helpful for storing your datas.",
   "main": "src/index.js",
