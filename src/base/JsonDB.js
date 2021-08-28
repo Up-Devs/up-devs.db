@@ -13,7 +13,7 @@ class JsonDB {
 
 /**
  * JsonDB options.
- * @param {dbName} dbName - The file name for this database.
+ * @param {string} dbName - The file name for this database.
  */
 constructor(dbName) {
 
