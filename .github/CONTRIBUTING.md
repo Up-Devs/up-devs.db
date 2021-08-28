@@ -8,4 +8,4 @@ You want to be a contributor for this package? Read this file first!
 
 **3.** Code stuff in files now! Put your love in it ❤️
 
-**4.** [Submit a pull request](https://github.com/brawlup/brawlup.js/compare)
+**4.** [Submit a pull request](https://github.com/Up-Devs/up-devs.db/compare)
