@@ -1,0 +1,5 @@
+# .[folder]
+.github/
+docs/
+
+jsdoc.json
