@@ -12,7 +12,7 @@ const JsonDB = require("../base/JsonDB");
 
 /**
  * The updev.db client options.
- * @typedef {object} ClientOptions
+ * @typedef {Object} ClientOptions
  */
 
 exports.Events = {
