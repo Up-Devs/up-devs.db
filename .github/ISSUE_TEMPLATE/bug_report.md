@@ -17,7 +17,7 @@ Put your code here
 ```
 
 ### Extra details
-- brawlup.js version:
+- up-devs.db version:
 - Node.js version:
 - Operating system:
 - Priority this issue has (be realistic):
