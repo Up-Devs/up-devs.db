@@ -6,20 +6,7 @@ on:
   push:
     branches:
       - main
-    paths:
-      - '.github/labels.yml'
 jobs:
-  labeler:
-    name: Labeler
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Run Labeler
-        uses: crazy-max/ghaction-github-labeler@v3
-        with:
-          github-token: ${{ secrets.ACCESS_TOKEN }}
   label-approved:
     runs-on: ubuntu-latest
     steps:
