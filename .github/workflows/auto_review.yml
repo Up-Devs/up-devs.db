@@ -1,0 +1,30 @@
+name: Testing
+on: [pull_request]
+jobs:
+  lint:
+    name: ESLint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Run ESLint
+        run: npm run test
+        id: eslint
+        continue-on-error: true
+
+      - name: Success
+        if: ${{ steps.eslint.outcome == 'success' }}
+        uses: Garlic-Team/Auto-Review@1.0.5
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          EVENT_TYPE: APPROVE
+          MESSAGE: 'Everything is fine.'
+
+      - name: Failure
+        if: ${{ steps.eslint.outcome != 'success' }}
+        uses: Garlic-Team/Auto-Review@1.0.5
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          EVENT_TYPE: REQUEST_CHANGES
+          MESSAGE: 'ESLint found errors. Please correct them. '
