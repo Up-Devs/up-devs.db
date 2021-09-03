@@ -1,11 +1,9 @@
-name: Labeler
+name: Labels
+
 on:
   schedule:
     - cron: '* * * * *'
-  workflow_dispatch:
-  push:
-    branches:
-      - main
+
 jobs:
   label-approved:
     runs-on: ubuntu-latest
