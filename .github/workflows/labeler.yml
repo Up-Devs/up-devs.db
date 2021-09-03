@@ -2,7 +2,7 @@ name: Labels
 
 on:
   schedule:
-    - cron: '* * * * *'
+    - cron: '*/5 * * * *'
 
 jobs:
   label-approved:
