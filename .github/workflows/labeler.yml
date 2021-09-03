@@ -15,10 +15,6 @@ jobs:
         token: ${{ secrets.ACCESS_TOKEN }}
         config: >
           {
-            "review: waiting":
-              {
-                "number": 0
-              },
             "review: approved":
               {
                 "number": 1,
