@@ -1,6 +1,10 @@
 name: Pull Request Approval
 
-on: [pull_request, pull_request_review]
+on: 
+ pull_request:
+  types: [opened, edited, reopened, ready_for_review, review_requested, review_request_removed, converted_to_draft]
+ pull_request_review:
+  types: [submitted, edited, dismissed]
 
 jobs:
   label-approved:
