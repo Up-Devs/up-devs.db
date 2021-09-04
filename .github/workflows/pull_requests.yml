@@ -1,8 +1,10 @@
 name: Labels
 
 on:
-  schedule:
-    - cron: '*/5 * * * *'
+ pull_request:
+  types: [opened, edited, reopened, ready_for_review, review_requested, review_request_removed, converted_to_draft]
+ pull_request_review:
+  [submitted, edited, dismissed]
 
 jobs:
   label-approved:
