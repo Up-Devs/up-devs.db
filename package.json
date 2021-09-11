@@ -30,12 +30,10 @@
   },
   "homepage": "https://github.com/Up-Devs/updev.db#readme",
   "dependencies": {
-    "fs": "^0.0.1-security",
     "lodash": "^4.17.21",
-    "moment": "^2.29.1",
-    "node-fetch": "^2.6.0",
-    "chalk": "^4.1.1",
-    "@discordjs/docgen": "^0.10.0",
-    "@types/node": "^16.6.2"
+    "mongoose": "5.11.15"
+   },
+  "devDependencies": {
+    "@discordjs/docgen": "^0.10.0"
   }
 }
