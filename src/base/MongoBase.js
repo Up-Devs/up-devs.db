@@ -7,6 +7,10 @@ const MongooseConnection = require('mongoose').Connection;
 const Events = require('../manager/Events');
 const Constants = require('../util/Constants');
 
+/**
+ * Creates a Mongo database.
+ * Used by {@link MongoDB} class. **Don't use it yourself!**
+ */
 class MongoBase extends EventEmitter {
 
     /**
