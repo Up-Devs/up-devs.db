@@ -14,11 +14,11 @@
   </p>
 </div>
 
-Up-Devs.DB is an useful data-base for your projects. Save your datas in JSON files and (coming soon) MongoDB!
+Up-Devs.DB is an useful data-base for your projects. Save your datas in JSON files and MongoDB!
 
 * Easy to use!
 * Has extra methods/properties!
-* Similar to [Quick.DB](https://www.npmjs.com/package/quick.db) and [QuickMongo](https://www.npmjs.com/package/quickmongo)!
+* Similar to [Quick.DB](https://www.npmjs.com/package/quick.db)!
 
 ## Get Started
 
@@ -32,29 +32,23 @@ npm i up-devs.db
 ## Example
 
 ```js
-const db = require('up-devs.db');
+const { MongoDB, JsonDB } = require('up-devs.db');
+const db = new MongoDB('mongodb+srv://up-devs/updevs.db')
+// or
+const db = new JsonDB('updevs-db')
 
-// Setting an object in the database:
-db.set('userInfo', { difficulty: 'Easy' })
-// -> { difficulty: 'Easy' }
+// Setting an object to this database.
+db.set('countries', { list: ['Turkey'] }) // 'countries' data: { list: 'Turkey' }
 
-// Pushing an element to an array (that doesn't exist yet) in an object:
-db.push('userInfo.items', 'Sword')
-// -> { difficulty: 'Easy', items: ['Sword'] }
+// Pushing an element to this data.
+db.push('countries.list', 'USA') // 'countries' data: { list: ['Turkey', 'USA'] }
 
-// Adding to a number (that doesn't exist yet) in an object:
-db.add('userInfo.balance', 500)
-// -> { difficulty: 'Easy', items: ['Sword'], balance: 500 }
+// Adding to a number to an object.
+db.add('countries.count', 206) // 'countries' data: { list: ['Turkey', 'USA'], count: 206  }
 
-// Repeating previous examples:
-db.push('userInfo.items', 'Watch')
-// -> { difficulty: 'Easy', items: ['Sword', 'Watch'], balance: 500 }
-db.add('userInfo.balance', 500)
-// -> { difficulty: 'Easy', items: ['Sword', 'Watch'], balance: 1000 }
-
-// Fetching individual properties
-db.get('userInfo.balance') // -> 1000
-db.get('userInfo.items') // ['Sword', 'Watch']
+// Fetching those datas.
+db.fetch('countries.list') // 'countries' data: ['Turkey', 'USA']
+db.get('countries.count') // 'countries' data: 206
 ```
 
 ## Support
