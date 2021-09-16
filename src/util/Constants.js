@@ -35,8 +35,8 @@ const JsonDB = require('../base/JsonDB')
 
 /**
 * @typedef {object} MongoKey
-* @property {string | undefined} key Parsed Key
-* @property {string | undefined} target Parsed target
+* @property {string|void} key Parsed Key
+* @property {string|void} target Parsed target
 */
 
 exports.Events = {
