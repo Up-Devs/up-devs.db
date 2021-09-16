@@ -11,7 +11,6 @@ class MongoBase extends EventEmitter {
 
     /**
      * Creates a Mongo database.
-     * 
      * Used by {@link MongoDB} class. **Don't use it yourself!**
      * @param {string} mongoURL The Mongo url for this base.
      * @param {Object} connectionOptions The mongoose options for this base.
