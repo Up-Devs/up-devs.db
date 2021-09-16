@@ -1,4 +1,5 @@
-const JsonDB = require("../base/JsonDB");
+const MongoDB = require('../base/MongoDB')
+const JsonDB = require('../base/JsonDB')
 
 /**
  * The math operators that you can use.
@@ -11,17 +12,90 @@ const JsonDB = require("../base/JsonDB");
  */
 
 /**
- * The updev.db client options.
- * @typedef {Object} ClientOptions
+ * MongoDB connection states.
+ * * `DISCONNECTED`
+ * * `CONNECTED`
+ * * `CONNECTING`
+ * * `DISCONNECTING`
+ * @typedef {string} MongoConnectionState
  */
 
+/**
+ * @typedef {object} MongoData
+ * @property {string} ID - This data's key that was set with.
+ * @property {any} data - This data's value.
+ */
+
+/**
+* @typedef {object} DatabaseLatency
+* @property {number} read - This database's read latency.
+* @property {number} write - This database's write latency.
+* @property {number} average - This database's average latency.
+*/
+
+/**
+* @typedef {object} MongoKey
+* @property {string | undefined} key Parsed Key
+* @property {string | undefined} target Parsed target
+*/
+
 exports.Events = {
-    JSON_DB: 'jsonDB'
+    DEBUG: "debug",
+    ERROR: "error",
+    READY: "ready"
 }
 
 /**
-* Emitter for a json database.
-* @event Client#jsonDB
-* @param {string} message - The message that was emitted.
-* @param {JsonDB} database - The database that was emitted from.
-*/
+ * Emitted whenever the database is ready to work.
+ * @event MongoDB#ready
+ * @param {MongoDB} database - The database that this event happened.
+ * @example db.on("ready", (database) => {
+ * console.log(`Database: ${database.name} is ready.`);
+ * });
+ */
+
+/**
+ * Emitted whenever an error is returned.
+ * @event MongoDB#error
+ * @param {Error} error - The error message which was emitted.
+ * @param {MongoDB} database - The database that this was emitted.
+ * @example
+ * db.on("error", (error) => {
+ * console.error(error)
+ * });
+ */
+
+ /**
+  * Emitted whenever a debug event happens.
+  * @event MongoDB#debug
+  * @param {string} message - The debug message which was emitted.
+  * @param {MongoDB} database - The database that this event was emitted.
+  * @example
+  * db.on("debug", (message) => {
+  * console.log(message)
+  * });
+  */
+
+ // ---------------------------------------------------------------- \\
+
+ /**
+ * Emitted whenever an error is returned.
+ * @event JsonDB#error
+ * @param {Error} error - The error message which was emitted.
+ * @param {JsonDB} database - The database that this event was emitted.
+ * @example
+ * db.on("error", (error) => {
+ * console.error(error)
+ * });
+ */
+
+ /**
+  * Emitted whenever a debug event happens.
+  * @event JsonDB#debug
+  * @param {string} message - The debug message which was emitted.
+  * @param {JsonDB} database - The database that this event was emitted.
+  * @example
+  * db.on("debug", (message) => {
+  * console.log(message)
+  * });
+  */
