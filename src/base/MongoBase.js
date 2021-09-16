@@ -14,7 +14,7 @@ class MongoBase extends EventEmitter {
      * 
      * Used by {@link MongoDB} class. **Don't use it yourself!**
      * @param {string} mongoURL The Mongo url for this base.
-     * @param {object} connectionOptions The mongoose options for this base.
+     * @param {Object} connectionOptions The mongoose options for this base.
      * @example
      * const { MongoBase } = require('up-devs.db');
      * const db = new MongoBase('mongodb://localhost/up-devs.db', 'up-devs')
