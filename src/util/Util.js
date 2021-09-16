@@ -35,7 +35,7 @@ class Util {
     /**
      * Returns the target and the key from this key.
      * @param {string} key - The key to parse.
-     * @returns {Constants.MongoKey}
+     * @returns {MongoKey}
      * @example
      * //Parsing this key.
      * Util.parseKey("hello.world");
