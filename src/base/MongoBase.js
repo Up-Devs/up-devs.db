@@ -97,7 +97,7 @@ class MongoBase extends EventEmitter {
 
     /**
      * Returns this database's connection state.
-     * @type {Constants.MongoConnectionState}
+     * @type {MongoConnectionState}
      */
     get state() {
         if (!this.connection || typeof this.connection.readyState !== "number") return "DISCONNECTED";
