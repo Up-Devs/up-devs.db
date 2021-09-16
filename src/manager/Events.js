@@ -25,7 +25,7 @@ class Events {
         if (typeof message !== "string") throw new Error(`Expected message to be a string, received ${typeof message}`);
     
         if (!database) throw new Error("A database was not provided.");
-        if (!database instanceof JsonDB && !database instanceof MongoDB) throw new Error(`Expected database to be a JsonDB or MongoDB, received ${typeof database}`);
+        if (!(database instanceof JsonDB) && !(database instanceof MongoDB)) throw new Error(`Expected database to be a JsonDB or MongoDB, received ${typeof database}`);
 
         database.emit(eventType, message, database);
         
