@@ -11,6 +11,7 @@
     <a href="https://github.com/Up-Devs/up-devs.db/pulls"><img src="https://img.shields.io/github/issues-pr/Up-Devs/up-devs.db" alt="Github pull requests" /></a>
     <a href="https://github.com/Up-Devs/up-devs.db/actions"><img src="https://img.shields.io/github/workflow/status/Up-Devs/up-devs.db/Node.js Package" alt="Github build status" /></a>
     <a href="https://github.com/Up-Devs/up-devs.db/blob/main/LICENSE"><img src="https://img.shields.io/github/license/Up-Devs/up-devs.db" alt="Github license" /></a>
+    <a href="https://www.codefactor.io/repository/github/Up-Devs/up-devs.db/overview"><img src="https://www.codefactor.io/repository/github/Up-Devs/up-devs.db/badge" alt="CodeFactor rating"></a>
   </p>
 </div>
 
