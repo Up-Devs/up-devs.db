@@ -234,7 +234,7 @@ all(limit) {
  * })
  */
 fetchAll(limit) {
-    return new Promise((resolve, reject) => { resolve(this.all(limit)) });
+    return new Promise((resolve) => { resolve(this.all(limit)) });
 }
 
 /**
@@ -383,8 +383,7 @@ pull(key, value, multiple = false) {
     if (!data) throw new Error(`A data with this key was not found`);
     if (!Array.isArray(data)) throw new Error(`Expected array for data, received ${typeof data}`);
 
-    
-    let pullFunction = (element, index, array) => Boolean
+    let pullFunction = (element, Number, Array) => Boolean
 
     if (value) pullFunction = pullFunction.bind(value);
     const length = data.length;
@@ -454,7 +453,7 @@ math(key, operator, value) {
 
     if (typeof value !== 'string') value = Number(value)
 
-    const data = this.get(key);
+    let data = this.get(key);
     if (!data) {
         return this.set(key, value);
     }
