@@ -5,7 +5,7 @@ const fs = require("fs");
 const Util = require("../util/Util");
 const DBData = require('../manager/DBData');
 
-const Constants = require('../util/Constants');
+const { DatabaseLatency, MongoData, MathOperator } = require('../util/Constants');
 
 const MongooseDocument = require('mongoose').Document;
 const Events = require('../manager/Events');
