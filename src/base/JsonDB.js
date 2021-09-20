@@ -3,7 +3,7 @@ const path = require('path')
 const { unlinkSync, existsSync, readFileSync, mkdirSync, writeFileSync } = require("fs");
 const lodash = require("lodash");
 const DBData = require('../manager/DBData');
-const Constants = require('../util/Constants')
+const { MathOperator } = require('../util/Constants')
 
 const EventEmitter = require('events');
 const Events = require('../manager/Events');
@@ -217,7 +217,7 @@ all(limit) {
 /**
  * Fetches all the database data in an array
  * @param {number} [limit='all'] - Limit for the database data that will be returned
- * @returns {Promise<Array<DBData>>}
+ * @returns {Promise<DBData[]>}
  * @example
  * //Returnes all database data
  * db.fetchAll().then(data => {
