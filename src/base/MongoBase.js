@@ -5,7 +5,7 @@ const Error = require("../Error");
 const MongooseConnection = require('mongoose').Connection;
 
 const Events = require('../manager/Events');
-const Constants = require('../util/Constants');
+const { MongoConnectionState } = require('../util/Constants');
 
 /**
  * Creates a Mongo database.
