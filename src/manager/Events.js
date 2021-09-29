@@ -22,7 +22,6 @@ class Events {
         if (typeof eventType !== "string") throw new Error(`Expected event type to be a string, received ${typeof eventType}`);
     
         if (!message || message === "") throw new Error("A message was not provided.");
-        if (typeof message !== "string") throw new Error(`Expected message to be a string, received ${typeof message}`);
     
         if (!database) throw new Error("A database was not provided.");
 
