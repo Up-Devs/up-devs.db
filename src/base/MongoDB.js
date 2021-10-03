@@ -208,7 +208,7 @@ class MongoDB extends Base {
     * db.fetch(`weapon.${weapon}`)
     */
     async fetch(key) {
-        return await this.get(key);
+        return this.get(key);
     }
 
     /**
