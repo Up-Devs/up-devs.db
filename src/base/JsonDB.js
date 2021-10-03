@@ -234,7 +234,7 @@ all(limit) {
  * })
  */
 fetchAll(limit) {
-    return new Promise((resolve) => { resolve(this.all(limit)) });
+    return this.all(limit);
 }
 
 /**
