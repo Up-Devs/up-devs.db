@@ -1,6 +1,3 @@
-const JsonDB = require("../base/JsonDB");
-const MongoDB = require("../base/MongoDB");
-
 /**
 * Represents a database data.
 */
@@ -8,23 +5,24 @@ class DBData {
 
     /**
      * Represents a database data.
-     * @param {JsonDB|MongoDB} database - The database that includes this data.
      * @param {string} key - This data's key that was set with.
+     * @param {any} data - This data that was set with this key.
      */
-    constructor(database, key) {
+    constructor(key, data) {
      
     /**
      * This data's ID that was set with.
      * @type {string}
      */
-     this.ID = key
+     this.ID = key;
 
     /**
      * This data's data.
      * @type {any}
      */
-     this.data = database.get(key)
+     this.data = data;
+
     }
 }
 
-module.exports = DBData
+module.exports = DBData;
