@@ -227,7 +227,7 @@ class MongoDB extends Base {
         let data = await this.schema.find().catch(e => {});
         if (!!limit) data = data.slice(0, limit);
 
-        return data.map(m => new DBData(this, m.ID));
+        return data.map(m => new DBData(m.ID, m.data));
     }
 
     /**
@@ -633,7 +633,7 @@ class MongoDB extends Base {
         }
 
         await this.set(key, data);
-        return new DBData(this, key);
+        return new DBData(key, data);
     }
 
     /**
