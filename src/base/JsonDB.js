@@ -124,7 +124,7 @@ set(key, value) {
 
     this.size++;
 
-    return new DBData(this, key)
+    return new DBData(key, value)
 }
 
 /**
@@ -343,16 +343,16 @@ push(key, value) {
 
     if (!data) { 
         this.set(key, [value]);
-        return new DBData(this, key);
+        return new DBData(key, value);
     }
 
     if (Array.isArray(data)) {
         data.push(value);
         this.set(key, data);
-        return new DBData(this, key);
+        return new DBData(key, data);
     } else {
         this.set(key, [value]);
-        return new DBData(this, key);
+        return new DBData(key, value);
     }
 }
 
