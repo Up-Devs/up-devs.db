@@ -3,7 +3,7 @@ const path = require('path')
 const { unlinkSync, existsSync, readFileSync, mkdirSync, writeFileSync } = require("fs");
 const lodash = require("lodash");
 const DBData = require('../manager/DBData');
-const Constants = require('../util/Constants')
+const { MathOperator } = require('../util/Constants')
 
 const EventEmitter = require('events');
 const Events = require('../manager/Events');
@@ -124,7 +124,7 @@ set(key, value) {
 
     this.size++;
 
-    return new DBData(this, key)
+    return new DBData(key, value)
 }
 
 /**
@@ -217,7 +217,7 @@ all(limit) {
 /**
  * Fetches all the database data in an array
  * @param {number} [limit='all'] - Limit for the database data that will be returned
- * @returns {Promise<Array<DBData>>}
+ * @returns {Promise<DBData[]>}
  * @example
  * //Returnes all database data
  * db.fetchAll().then(data => {
@@ -234,7 +234,7 @@ all(limit) {
  * })
  */
 fetchAll(limit) {
-    return new Promise((resolve, reject) => { resolve(this.all(limit)) });
+    return this.all(limit);
 }
 
 /**
@@ -343,16 +343,16 @@ push(key, value) {
 
     if (!data) { 
         this.set(key, [value]);
-        return new DBData(this, key);
+        return new DBData(key, value);
     }
 
     if (Array.isArray(data)) {
         data.push(value);
         this.set(key, data);
-        return new DBData(this, key);
+        return new DBData(key, data);
     } else {
         this.set(key, [value]);
-        return new DBData(this, key);
+        return new DBData(key, value);
     }
 }
 
@@ -383,8 +383,7 @@ pull(key, value, multiple = false) {
     if (!data) throw new Error(`A data with this key was not found`);
     if (!Array.isArray(data)) throw new Error(`Expected array for data, received ${typeof data}`);
 
-    
-    let pullFunction = (element, index, array) => Boolean
+    let pullFunction = (element, Number, Array) => Boolean
 
     if (value) pullFunction = pullFunction.bind(value);
     const length = data.length;
@@ -454,7 +453,7 @@ math(key, operator, value) {
 
     if (typeof value !== 'string') value = Number(value)
 
-    const data = this.get(key);
+    let data = this.get(key);
     if (!data) {
         return this.set(key, value);
     }

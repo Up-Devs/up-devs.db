@@ -5,16 +5,19 @@ const Error = require("../Error");
 const MongooseConnection = require('mongoose').Connection;
 
 const Events = require('../manager/Events');
-const Constants = require('../util/Constants');
+const { MongoConnectionState } = require('../util/Constants');
 
+/**
+ * Creates a Mongo database.
+ * Used by {@link MongoDB} class. **Don't use it yourself!**
+ */
 class MongoBase extends EventEmitter {
 
     /**
      * Creates a Mongo database.
-     * 
      * Used by {@link MongoDB} class. **Don't use it yourself!**
      * @param {string} mongoURL The Mongo url for this base.
-     * @param {object} connectionOptions The mongoose options for this base.
+     * @param {Object} connectionOptions The mongoose options for this base.
      * @example
      * const { MongoBase } = require('up-devs.db');
      * const db = new MongoBase('mongodb://localhost/up-devs.db', 'up-devs')
@@ -97,7 +100,7 @@ class MongoBase extends EventEmitter {
 
     /**
      * Returns this database's connection state.
-     * @type {Constants.MongoConnectionState}
+     * @type {MongoConnectionState}
      */
     get state() {
         if (!this.connection || typeof this.connection.readyState !== "number") return "DISCONNECTED";

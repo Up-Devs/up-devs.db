@@ -5,7 +5,7 @@ const fs = require("fs");
 const Util = require("../util/Util");
 const DBData = require('../manager/DBData');
 
-const Constants = require('../util/Constants');
+const { DatabaseLatency, MathOperator } = require('../util/Constants');
 
 const MongooseDocument = require('mongoose').Document;
 const Events = require('../manager/Events');
@@ -208,7 +208,7 @@ class MongoDB extends Base {
     * db.fetch(`weapon.${weapon}`)
     */
     async fetch(key) {
-        return await this.get(key);
+        return this.get(key);
     }
 
     /**
@@ -227,7 +227,7 @@ class MongoDB extends Base {
         let data = await this.schema.find().catch(e => {});
         if (!!limit) data = data.slice(0, limit);
 
-        return data.map(m => new DBData(this, m.ID));
+        return data.map(m => new DBData(m.ID, m.data));
     }
 
     /**
@@ -633,7 +633,7 @@ class MongoDB extends Base {
         }
 
         await this.set(key, data);
-        return new DBData(this, key);
+        return new DBData(key, data);
     }
 
     /**

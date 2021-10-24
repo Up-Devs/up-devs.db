@@ -21,22 +21,16 @@ const JsonDB = require('../base/JsonDB')
  */
 
 /**
- * @typedef {object} MongoData
- * @property {string} ID - This data's key that was set with.
- * @property {any} data - This data's value.
- */
-
-/**
-* @typedef {object} DatabaseLatency
+* @typedef {Object} DatabaseLatency
 * @property {number} read - This database's read latency.
 * @property {number} write - This database's write latency.
 * @property {number} average - This database's average latency.
 */
 
 /**
-* @typedef {object} MongoKey
-* @property {string | undefined} key Parsed Key
-* @property {string | undefined} target Parsed target
+* @typedef {Object} MongoKey
+* @property {string|void} key Parsed Key
+* @property {string|void} target Parsed target
 */
 
 exports.Events = {
