@@ -22,7 +22,7 @@ class MongoBase extends EventEmitter {
      * const { MongoBase } = require('up-devs.db');
      * const db = new MongoBase('mongodb://localhost/up-devs.db', 'up-devs')
      */
-    constructor(mongoURL, connectionOptions={}) {
+    constructor(mongoURL, connectionOptions = {}) {
         super();
         if (!mongoURL || !mongoURL.startsWith("mongodb")) throw new Error("No mongodb url was provided!");
         if (typeof mongoURL !== "string") throw new Error(`Expected a string for mongoURL, received ${typeof mongoURL}`);
@@ -44,7 +44,7 @@ class MongoBase extends EventEmitter {
          */
         this.connection = this._create();
 
-        this.connection.on("error", (e) => {
+        this.connection.on("error", e => {
             new Events("error", e, this);
         });
         this.connection.on("open", () => {
@@ -68,7 +68,7 @@ class MongoBase extends EventEmitter {
         if (url && typeof url === "string") this.dbURL = url;
         if (!this.dbURL || typeof this.dbURL !== "string") throw new Error("Database url was not provided!", "MongoError");
 
-        delete this.options["useUnique"];
+        delete this.options.useUnique;
 
         return mongoose.createConnection(this.dbURL, {
             ...this.options,
@@ -104,7 +104,7 @@ class MongoBase extends EventEmitter {
      */
     get state() {
         if (!this.connection || typeof this.connection.readyState !== "number") return "DISCONNECTED";
-        switch(this.connection.readyState) {
+        switch (this.connection.readyState) {
             case 0:
                 return "DISCONNECTED";
             case 1:
