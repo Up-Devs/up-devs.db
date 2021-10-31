@@ -2,6 +2,7 @@ const Error = require('../Error')
 
 /**
  * Makes your console colorful
+ * @private
  */
 class Colorful {
 
