@@ -36,7 +36,7 @@ const JsonDB = require('../base/JsonDB');
 exports.Events = {
     DEBUG: "debug",
     ERROR: "error",
-    READY: "ready"
+    READY: "ready",
 };
 
 /**
