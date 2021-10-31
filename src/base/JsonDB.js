@@ -177,7 +177,7 @@ fetch(key) {
  * db.exists("ourLives")
  */
 exists(key) {
-    /*eslint no-prototype-builtins: "error"*/
+    /* eslint no-prototype-builtins: "error" */
     return this.toJSON().hasOwnProperty(key);
 }
 
