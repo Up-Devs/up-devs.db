@@ -272,7 +272,7 @@ class MongoDB extends Base {
     /**
      * Can't solves your math problems, but can calculate/add/remove numbers from this value.
      * @param {string} key - The key for this value.
-     * @param {Constants.MathOperator} operator - One of the math operator for the calculation.
+     * @param {MathOperator} operator - One of the math operator for the calculation.
      * @param {number|string} value - The value for the math calculation.
      * @returns {Promise<any>}
      * @example
