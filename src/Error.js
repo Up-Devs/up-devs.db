@@ -1,5 +1,4 @@
 class UpError extends Error {
-
     constructor(message, name = null) {
         super();
 
@@ -8,7 +7,6 @@ class UpError extends Error {
         this.message = message;
         this.name = name || "TypeError";
     }
-
 }
 
 module.exports = UpError;

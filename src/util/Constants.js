@@ -1,5 +1,5 @@
-const MongoDB = require('../base/MongoDB')
-const JsonDB = require('../base/JsonDB')
+const MongoDB = require('../base/MongoDB');
+const JsonDB = require('../base/JsonDB');
 
 /**
  * The math operators that you can use.
@@ -37,7 +37,7 @@ exports.Events = {
     DEBUG: "debug",
     ERROR: "error",
     READY: "ready"
-}
+};
 
 /**
  * Emitted whenever the database is ready to work.
