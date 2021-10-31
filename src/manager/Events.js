@@ -6,6 +6,7 @@ const MongoDB = require("../base/MongoDB");
 
 /**
  * Emits an event for Up-Devs.DB
+ * @private
  */
 class Events {
  
