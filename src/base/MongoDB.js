@@ -15,7 +15,6 @@ const Events = require('../manager/Events');
  * Stores values in a Mongo database.
  */
 class MongoDB extends Base {
-
     /**
      * Mongo database options.
      * @typedef {Object} MongoDBOptions
@@ -51,13 +50,13 @@ class MongoDB extends Base {
          * This database's options.
          * @type {MongoDBOptions}
          */
-        this.options = options ? options : null
+        this.options = options ? options : null;
 
        /**
         * This database's uptime duration in miliseconds.
         * @type {number}
         */
-        this.uptime = this.readyAt ? Date.now() - this.readyAt.getTime() : 0
+        this.uptime = this.readyAt ? Date.now() - this.readyAt.getTime() : 0;
     }
 
     /**
@@ -65,10 +64,10 @@ class MongoDB extends Base {
      * @param {string} key - The key for this value.
      * @param {any} value - The value that will be set.
      * @returns {Promise<any>}
-     * @example 
+     * @example
      * //Setting a string
      * db.set("foo", "bar");
-     * 
+     *
      * //Setting an object
      * db.set("info", {
      * name: "Josh",
@@ -79,25 +78,21 @@ class MongoDB extends Base {
         if (!Util.isKey(key)) throw new Error("Invalid key specified!", "KeyError");
         if (!Util.isValue(value)) throw new Error("Invalid value specified!", "ValueError");
         const parsed = Util.parseKey(key);
-        let raw = await this.schema.findOne({
+        const raw = await this.schema.findOne({
             ID: parsed.key
         });
         if (!raw) {
-            let data = new this.schema({
+            const data = new this.schema({
                 ID: parsed.key,
                 data: parsed.target ? Util.setData(key, {}, value) : value
             });
             await data.save()
-                .catch(e => {
-                    return new Events(Constants.Events.ERROR, e, this);
-                });
+                .catch(e => new Events(Constants.Events.ERROR, e, this));
             return data.data;
         } else {
             raw.data = parsed.target ? Util.setData(key, Object.assign({}, raw.data), value) : value;
             await raw.save()
-                .catch(e => {
-                    return new Events(Constants.Events.ERROR, e, this);
-                });
+                .catch(e => new Events(Constants.Events.ERROR, e, this));
             return raw.data;
         }
     }
@@ -106,10 +101,10 @@ class MongoDB extends Base {
     * Deletes a data from this database.
     * @param {string} key - The key for this value.
     * @returns {Promise<boolean>}
-    * @example 
+    * @example
     * //Deletes gamerProfile data
     * db.delete("gamerProfile")
-    * 
+    *
     * //Deletes gamerProfile data (with player specified)
     * const player = 'Ben'
     * db.delete(`gamerProfile.${player}`)
@@ -120,16 +115,14 @@ class MongoDB extends Base {
         const raw = await this.schema.findOne({ ID: parsed.key });
         if (!raw) return false;
         if (parsed.target) {
-            let data = Util.unsetData(key, Object.assign({}, raw.data));
+            const data = Util.unsetData(key, Object.assign({}, raw.data));
             if (data === raw.data) return false;
             raw.data = data;
             raw.save().catch(e => new Events(Constants.Events.ERROR, e, this));
             return true;
         } else {
             await this.schema.findOneAndDelete({ ID: parsed.key })
-                .catch(e => {
-                    return new Events(Constants.Events.ERROR, e, this);
-                });
+                .catch(e => new Events(Constants.Events.ERROR, e, this));
             return true;
         }
     }
@@ -138,7 +131,7 @@ class MongoDB extends Base {
     * Checks if a value with this key exists.
     * @param {string} key - The key for this value.
     * @returns {Promise<boolean>}
-    * @example 
+    * @example
     * //Checks if exists
     * db.exists("ourLives")
     */
@@ -146,22 +139,20 @@ class MongoDB extends Base {
         if (!Util.isKey(key)) throw new Error("Invalid key specified!", "KeyError");
         const parsed = Util.parseKey(key);
 
-        let get = await this.schema.findOne({ ID: parsed.key })
-            .catch(e => {
-                return new Events(Constants.Events.ERROR, e, this);
-            });
+        const get = await this.schema.findOne({ ID: parsed.key })
+            .catch(e => new Events(Constants.Events.ERROR, e, this));
         if (!get) return null;
         let item;
         if (parsed.target) item = Util.getData(key, Object.assign({}, get.data));
         else item = get.data;
-        return item === undefined ? false : true;
+        return item !== undefined;
     }
 
     /**
     * Checks if this database has this key.
     * @param {string} key - The key for this value.
     * @returns {Promise<boolean>}
-    * @example 
+    * @example
     * //Checks if this database has this key
     * db.has("goodVibes")
     */
@@ -173,10 +164,10 @@ class MongoDB extends Base {
     * Gets a data that was set to this database before.
     * @param {string} key - The key for this value.
     * @returns {Promise<any>}
-    * @example 
+    * @example
     * //Get the 'playedBefore' value
     * db.get("playedBefore")
-    * 
+    *
     * //Get the 'playedBefore' value (with a user specified)
     * const user = 'Up Devs'
     * db.get(`playedBefore.${user}`)
@@ -185,10 +176,8 @@ class MongoDB extends Base {
         if (!Util.isKey(key)) throw new Error("Invalid key specified!", "KeyError");
         const parsed = Util.parseKey(key);
 
-        let get = await this.schema.findOne({ ID: parsed.key })
-            .catch(e => {
-                return new Events(Constants.Events.ERROR, e, this);
-            });
+        const get = await this.schema.findOne({ ID: parsed.key })
+            .catch(e => new Events(Constants.Events.ERROR, e, this));
         if (!get) return null;
         let item;
         if (parsed.target) item = Util.getData(key, Object.assign({}, get.data));
@@ -200,10 +189,10 @@ class MongoDB extends Base {
     * Fetches a data that was set to this database before.
     * @param {string} key - The key for this value.
     * @returns {Promise<any>} Value that was set with this key.
-    * @example 
+    * @example
     * //Fetch the 'weapon' value
     * db.fetch("weapon")
-    * 
+    *
     * //Fetch the 'weapon' value (with a weapon specified)
     * const weapon = 'rifle'
     * db.fetch(`weapon.${weapon}`)
@@ -219,14 +208,14 @@ class MongoDB extends Base {
      * @example
      * //Returnes all database data
      * db.all()
-     * 
+     *
      * //Returnes 8 of the database data
      * db.all(8)
      */
     async all(limit = 0) {
         if (typeof limit !== "number" || limit < 1) limit = 0;
-        let data = await this.schema.find().catch(e => { throw new Error(e.name) });
-        if (!!limit) data = data.slice(0, limit);
+        let data = await this.schema.find().catch(e => { throw new Error(e.name); });
+        if (limit) data = data.slice(0, limit);
 
         return data.map(m => new DBData(m.ID, m.data));
     }
@@ -238,16 +227,16 @@ class MongoDB extends Base {
      * @example
      * //Returnes all database data
      * db.fetchAll().then(data => {
-     * 
+     *
      * //...
-     * 
+     *
      * })
-     * 
+     *
      * //Fetches 8 of the database data
      * db.fetchAll(8).then(data => {
-     * 
+     *
      * //...
-     * 
+     *
      * })
      */
     async fetchAll(limit) {
@@ -258,7 +247,7 @@ class MongoDB extends Base {
      * Deletes every single data from this database.
      * @param {string} key - The key for this value.
      * @returns {Promise<boolean>}
-     * @example 
+     * @example
      * //Deletes every single data
      * db.deleteAll()
      */
@@ -269,7 +258,7 @@ class MongoDB extends Base {
         return true;
     }
 
-    
+
     /**
      * Can't solves your math problems, but can calculate/add/remove numbers from this value.
      * @param {string} key - The key for this value.
@@ -279,7 +268,7 @@ class MongoDB extends Base {
      * @example
      * //Adds 238 to the pencil value
      * db.math("pencil", "+", 238)
-     * 
+     *
      * //Subtracts 1 from the issues value
      * db.substr("issues", "-", 1)
      */
@@ -288,9 +277,9 @@ class MongoDB extends Base {
         if (!operator) throw new Error("No operator provided!");
         if (!Util.isValue(value)) throw new Error("Invalid value specified!", "ValueError");
 
-        let data = await this.get(key);
+        const data = await this.get(key);
 
-        switch(operator) {
+        switch (operator) {
             case "add":
             case "+":
                 if (!data) {
@@ -379,10 +368,10 @@ class MongoDB extends Base {
      *     console.log(`File exported to ${path}`);
      * });
      */
-    export(fileName="database", path="./") {
+    export(fileName = "database", path = "./") {
         return new Promise((resolve, reject) => {
             new Events(Constants.Events.DEBUG, `Exporting database datas to ${path || ""}${fileName}`, this);
-            this.all().then((data) => {
+            this.all().then(data => {
                 const strData = JSON.stringify(data);
                 if (fileName) {
                     fs.writeFileSync(`${path || ""}${fileName}`, strData);
@@ -396,7 +385,7 @@ class MongoDB extends Base {
 
     /**
      * Imports datas from other sources to this database.
-     * 
+     *
      * <warn>You should set `useUnique` to `true` in order to avoid duplicate documents.</warn>
      * @param {Array} data - The data array to be imported.
      * @param {object} options - MongoDB importing options.
@@ -413,7 +402,7 @@ class MongoDB extends Base {
             if (!Array.isArray(data)) return reject(new Error(`Data type must be Array, received ${typeof data}!`, "DataTypeError"));
             if (data.length < 1) return resolve(false);
             if (!options.unique) {
-                this.schema.insertMany(data, { ordered: !options.validate }, (error) => {
+                this.schema.insertMany(data, { ordered: !options.validate }, error => {
                     if (error) return reject(new Error(`${error}`, "DataImportError"));
                     return resolve(true);
                 });
@@ -458,7 +447,7 @@ class MongoDB extends Base {
      * @returns {Promise<number>}
      */
     async _read() {
-        let start = Date.now();
+        const start = Date.now();
         await this.get("LQ==");
         return Date.now() - start;
     }
@@ -470,7 +459,7 @@ class MongoDB extends Base {
      * @returns {Promise<number>}
      */
     async _write() {
-        let start = Date.now();
+        const start = Date.now();
         await this.set("LQ==", Buffer.from(start.toString()).toString("base64"));
         return Date.now() - start;
     }
@@ -485,9 +474,9 @@ class MongoDB extends Base {
      * console.log("Average: ", ping.average);
      */
     async fetchLatency() {
-        let read = await this._read();
-        let write = await this._write();
-        let average = (read + write) / 2;
+        const read = await this._read();
+        const write = await this._write();
+        const average = (read + write) / 2;
         this.delete("LQ==").catch(e => {});
         return { read, write, average };
     }
@@ -516,11 +505,11 @@ class MongoDB extends Base {
      */
     async startsWith(key, options) {
         if (!key || typeof key !== "string") throw new Error(`Expected key to be a string, received ${typeof key}`);
-        let all = await this.all(options && options.limit);
+        const all = await this.all(options && options.limit);
         return Util.sort(key, all, options);
     }
 
-    
+
     /**
      * Returns the type of this data.
      * @param {string} key - The key for this value.
@@ -531,7 +520,7 @@ class MongoDB extends Base {
      */
     async type(key) {
         if (!Util.isKey(key)) throw new Error("Invalid Key!", "KeyError");
-        let fetched = await this.get(key);
+        const fetched = await this.get(key);
         if (Array.isArray(fetched)) return "array";
         return typeof fetched;
     }
@@ -568,10 +557,10 @@ class MongoDB extends Base {
      * @example
      * //Pushes a string to the members data
      * db.push("members", "Arthur");
-     * 
+     *
      * //Pushes a number to the members data
      * db.push("members", 102);
-     * 
+     *
      * //Pushes an object to the members data
      * db.push("members", {
      * name: "Arthur"
@@ -599,10 +588,10 @@ class MongoDB extends Base {
      * @example
      * //Pulls a string from the members data
      * db.pull("members", "Arthur");
-     * 
+     *
      * //Pulls a number from the members data
      * db.pull("members", 102);
-     * 
+     *
      * //Pulls an object from the members data
      * db.pull("members", {
      * name: "Arthur"
@@ -610,11 +599,11 @@ class MongoDB extends Base {
      * });
      */
     async pull(key, value, multiple = false) {
-        let data = await this.get(key);
+        const data = await this.get(key);
         if (data === null) return false;
         if (!Array.isArray(data)) throw new Error(`Expected target type to be Array, received ${typeof data}!`);
 
-        let pullFunction = (element, index, array) => Boolean
+        let pullFunction = (element, index, array) => Boolean;
 
         if (value) pullFunction = pullFunction.bind(value);
         const length = data.length;
@@ -679,7 +668,7 @@ class MongoDB extends Base {
      * This method exports **MongoDB** data to **Quick.db**
      * @param {any} QuickDB Quick.db database (class)
      * @returns {Promise<any[]>}
-     * @example 
+     * @example
      * //Exports to Quick.db
      * db.exportToQuickDB(QuickDB)
      */
