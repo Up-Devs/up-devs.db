@@ -37,7 +37,7 @@ constructor(dbName, options) {
 
     let dataBaseName
 
-    //Setting up dbFile.
+    // Setting up dbFile.
     if (dbName.startsWith(bP)) dataBaseName = dbName.replace(bP, "");
     if (dbName.startsWith(`.${path.sep}`)) dataBaseName = dbName.slice(1);
     if (!dbName.startsWith(path.sep)) dataBaseName = path.sep + dbName;
@@ -418,7 +418,7 @@ pull(key, value, multiple = false) {
  */
 valueArray() {
     const all = this.all();
-    return all.map((element) => element.value);
+    return all.map(element => element.value);
 }
 
 /**
@@ -430,7 +430,7 @@ valueArray() {
  */
 keyArray() {
     const all = this.all();
-    return all.map((element) => element.key);
+    return all.map(element => element.key);
 }
 
 /**
