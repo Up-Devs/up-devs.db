@@ -545,7 +545,7 @@ includes(keywords) {
     if (!keywords || keywords === "") throw new Error("Keywords was not provided")
     if (typeof keywords !== "string") throw new Error(`Expected string for keywords, received ${typeof keywords}`)
 
-    return this.filter((element) => element.key.includes(keywords));
+    return this.filter(element => element.key.includes(keywords));
 }
 
 /**
@@ -560,7 +560,7 @@ startsWith(keywords) {
     if (!keywords || keywords === "") throw new Error("Keywords was not provided")
     if (typeof keywords !== "string") throw new Error(`Expected string for keywords, received ${typeof keywords}`)
 
-    return this.filter((element) => element.key.startsWith(keywords));
+    return this.filter(element => element.key.startsWith(keywords));
 }
 
 /**
