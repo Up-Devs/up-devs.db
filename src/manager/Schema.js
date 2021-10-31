@@ -9,7 +9,7 @@ const UpSchema = new Schema({
     data: {
         type: Schema.Types.Mixed,
         required: true
-    }
+    },
 });
 
 /**
