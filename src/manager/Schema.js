@@ -4,11 +4,11 @@ const UpSchema = new Schema({
     ID: {
         type: Schema.Types.String,
         required: true,
-        unique: true
+        unique: true,
     },
     data: {
         type: Schema.Types.Mixed,
-        required: true
+        required: true,
     },
 });
 
