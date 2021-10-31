@@ -12,7 +12,6 @@ const { MongoConnectionState } = require('../util/Constants');
  * Used by {@link MongoDB} class. **Don't use it yourself!**
  */
 class MongoBase extends EventEmitter {
-
     /**
      * Creates a Mongo database.
      * Used by {@link MongoDB} class. **Don't use it yourself!**

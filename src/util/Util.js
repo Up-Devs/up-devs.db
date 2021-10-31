@@ -7,7 +7,6 @@ const { MongoKey } = require('./Constants');
 * Up-Devs.DB's utilities. **Every method of this class is a `static` method.**
 */
 class Util {
-
     /**
      * Checks if this key is valid.
      * @param {any} key - The key to check.
@@ -25,7 +24,7 @@ class Util {
      */
     static isValue(data) {
         if (typeof data === "undefined") throw new Error("Data cannot be undefined", "ValueError");
-        if (data === Infinity || data === -Infinity) throw new Error("Data cannot be Infinity", "ValueError")
+        if (data === Infinity || data === -Infinity) throw new Error("Data cannot be Infinity", "ValueError");
         return true;
     }
 
@@ -40,9 +39,9 @@ class Util {
     static parseKey(key) {
         if (!Util.isKey(key)) return { key: undefined, target: undefined };
         if (key.includes(".")) {
-            let spl = key.split(".");
-            let parsed = spl.shift();
-            let target = spl.join(".");
+            const spl = key.split(".");
+            const parsed = spl.shift();
+            const target = spl.join(".");
             return { key: parsed, target };
         }
         return { key, target: undefined };
@@ -80,10 +79,10 @@ class Util {
      * Util.setData("hello.world", { ... }, ["nodejs"]);
      */
     static setData(key, data, value) {
-        let parsed = this.parseKey(key);
+        const parsed = this.parseKey(key);
         if (typeof data === "object" && parsed.target) {
             return lodash.set(data, parsed.target, value);
-        } else if (parsed.target) throw new Error("Cannot target non-object.", "TargetError");
+        } else if (parsed.target) { throw new Error("Cannot target non-object.", "TargetError"); }
         return data;
     }
 
@@ -97,8 +96,8 @@ class Util {
      * Util.unsetData("user.items", {...});
      */
     static unsetData(key, data) {
-        let parsed = this.parseKey(key);
-        let item = data;
+        const parsed = this.parseKey(key);
+        const item = data;
         if (typeof data === "object" && parsed.target) {
         lodash.unset(item, parsed.target);
         } else if (parsed.target) {
@@ -116,8 +115,8 @@ class Util {
      * Util.getData("countries", { ... });
      */
     static getData(key) {
-        let parsed = this.parseKey(key);
-        let data
+        const parsed = this.parseKey(key);
+        let data;
 
         if (parsed.target) data = lodash.get(data, parsed.target);
         return data;
