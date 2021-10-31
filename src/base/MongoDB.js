@@ -225,7 +225,7 @@ class MongoDB extends Base {
      */
     async all(limit = 0) {
         if (typeof limit !== "number" || limit < 1) limit = 0;
-        let data = await this.schema.find().catch(e => {});
+        let data = await this.schema.find().catch(e => throw new Error(e.name));
         if (!!limit) data = data.slice(0, limit);
 
         return data.map(m => new DBData(m.ID, m.data));
