@@ -1,8 +1,8 @@
 module.exports = {
     // Databases
-    UpDB: require("./src/base/UpDB"),
     MongoDB: require("./src/base/MongoDB"),
     JsonDB: require('./src/base/JsonDB'),
+    RedisDB: require("./src/base/SqliteDB"),
 
     // Bases
     MongoBase: require("./src/base/MongoBase"),
