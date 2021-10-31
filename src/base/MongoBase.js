@@ -29,7 +29,7 @@ class MongoBase extends EventEmitter {
         if (connectionOptions && typeof connectionOptions !== "object") throw new Error(`Expected Object for connectionOptions, received ${typeof connectionOptions}`);
 
         Object.defineProperty(this, "dbURL", {
-            value: mongoURL
+            value: mongoURL,
         });
 
         /**
@@ -74,7 +74,7 @@ class MongoBase extends EventEmitter {
             ...this.options,
             useNewUrlParser: true,
             useUnifiedTopology: true,
-            useCreateIndex: true
+            useCreateIndex: true,
         });
     }
 
@@ -89,7 +89,7 @@ class MongoBase extends EventEmitter {
         this.dbURL = null;
         new Events("debug", "Database disconnected.", this);
     }
-    
+
     /**
      * Returns this database's Mongo url.
      * @type {string}
