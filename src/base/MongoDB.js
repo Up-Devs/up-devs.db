@@ -198,7 +198,7 @@ class MongoDB extends Base {
     * db.fetch(`weapon.${weapon}`)
     */
     async fetch(key) {
-        return this.get(key);
+        return await this.get(key);
     }
 
     /**
@@ -569,7 +569,7 @@ class MongoDB extends Base {
      */
     async push(key, value) {
         const data = await this.get(key);
-        if (data == null) {
+        if (data === null) {
             if (!Array.isArray(value)) return await this.set(key, [value]);
             return await this.set(key, value);
         }
