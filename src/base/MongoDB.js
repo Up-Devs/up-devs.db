@@ -398,7 +398,7 @@ class MongoDB extends Base {
      * db.import(data);
      */
     import(data = [], options = { unique: false, validate: false }) {
-        return new Promise(async (resolve, reject) => {
+        return new Promise((resolve, reject) => {
             if (!Array.isArray(data)) return reject(new Error(`Data type must be Array, received ${typeof data}!`, "DataTypeError"));
             if (data.length < 1) return resolve(false);
             if (!options.unique) {
