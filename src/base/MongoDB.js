@@ -253,7 +253,7 @@ class MongoDB extends Base {
      */
     async deleteAll() {
         new Events(Constants.Events.DEBUG, "Deleting every single data from this database.", this);
-        await this.schema.deleteMany().catch(e => { throw new Error(e.name) });
+        await this.schema.deleteMany().catch(e => { throw new Error(e.name); });
         new Events(Constants.Events.DEBUG, "Deleting every single data is completed!", this);
         return true;
     }
