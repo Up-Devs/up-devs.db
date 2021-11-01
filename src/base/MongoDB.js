@@ -79,12 +79,12 @@ class MongoDB extends Base {
         if (!Util.isValue(value)) throw new Error("Invalid value specified!", "ValueError");
         const parsed = Util.parseKey(key);
         const raw = await this.schema.findOne({
-            ID: parsed.key
+            ID: parsed.key,
         });
         if (!raw) {
             const data = new this.schema({
                 ID: parsed.key,
-                data: parsed.target ? Util.setData(key, {}, value) : value
+                data: parsed.target ? Util.setData(key, {}, value) : value,
             });
             await data.save()
                 .catch(e => new Events(Constants.Events.ERROR, e, this));
@@ -253,7 +253,7 @@ class MongoDB extends Base {
      */
     async deleteAll() {
         new Events(Constants.Events.DEBUG, "Deleting every single data from this database.", this);
-        await this.schema.deleteMany().catch(e => {});
+        await this.schema.deleteMany().catch(e => { throw new Error(e.name) });
         new Events(Constants.Events.DEBUG, "Deleting every single data is completed!", this);
         return true;
     }
@@ -477,7 +477,6 @@ class MongoDB extends Base {
         const read = await this._read();
         const write = await this._write();
         const average = (read + write) / 2;
-        this.delete("LQ==").catch(e => {});
         return { read, write, average };
     }
 
