@@ -1,6 +1,6 @@
 {
   "name": "up-devs.db",
-  "version": "1.1.0",
+  "version": "1.2.0-dev",
   "description": "An useful data-base for your projects. Helpful for storing your datas.",
   "main": "index.js",
   "types": "typings/index.d.ts",
@@ -39,7 +39,11 @@
     "mongoose": "5.11.15"
   },
   "devDependencies": {
-    "@discordjs/docgen": "^0.10.0"
+    "@discordjs/docgen": "^0.10.0",
+    "eslint": "^8.1.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-prettier": "^4.0.0"
   },
   "directories": {
     "doc": "docs",

@@ -1,9 +1,12 @@
-const Error = require('../Error')
-const path = require('path')
+const Error = require('../Error');
+const path = require('path');
 const { unlinkSync, existsSync, readFileSync, mkdirSync, writeFileSync } = require("fs");
 const lodash = require("lodash");
 const DBData = require('../manager/DBData');
-const { MathOperator } = require('../util/Constants')
+const { MathOperator } = require('../util/Constants');
+
+const Constants = require('../util/Constants');
+const Util = require('../util/Util');
 
 const EventEmitter = require('events');
 const Events = require('../manager/Events');
@@ -12,7 +15,6 @@ const Events = require('../manager/Events');
  * Stores values in a json file.
  */
 class JsonDB extends EventEmitter {
-
 /**
  * Json database options.
  * @typedef {Object} JsonDBOptions
@@ -28,13 +30,13 @@ class JsonDB extends EventEmitter {
  * const db = new JsonDB('up-db');
  */
 constructor(dbName, options) {
-    super()
+    super();
 
     let bP = process.cwd();
 
-    let dataBaseName
+    let dataBaseName;
 
-    //Setting up dbFile.
+    // Setting up dbFile.
     if (dbName.startsWith(bP)) dataBaseName = dbName.replace(bP, "");
     if (dbName.startsWith(`.${path.sep}`)) dataBaseName = dbName.slice(1);
     if (!dbName.startsWith(path.sep)) dataBaseName = path.sep + dbName;
@@ -85,7 +87,7 @@ constructor(dbName, options) {
      * This databases's name.
      * @type {string}
      */
-    this.name = dbName.replace('.json')
+    this.name = dbName.replace('.json');
 
     /**
      * This data-base's key size.
@@ -97,7 +99,7 @@ constructor(dbName, options) {
      * This database's options.
      * @type {JsonDBOptions}
      */
-     this.options = options ? options : null
+     this.options = options ? options : null;
 }
 
 /**
@@ -105,10 +107,10 @@ constructor(dbName, options) {
  * @param {string} key - The key for this value.
  * @param {any} value - The value that will be set.
  * @returns {DBData}
- * @example 
+ * @example
  * //Setting a string
  * db.set("foo", "bar");
- * 
+ *
  * //Setting an object
  * db.set("info", {
  * name: "Josh",
@@ -124,17 +126,17 @@ set(key, value) {
 
     this.size++;
 
-    return new DBData(key, value)
+    return new DBData(key, value);
 }
 
 /**
  * Gets a data that was set to this database before.
  * @param {string} key - The key for this value.
  * @returns {DBData}
- * @example 
+ * @example
  * //Get the 'playedBefore' value
  * db.get("playedBefore")
- * 
+ *
  * //Get the 'playedBefore' value (with a user specified)
  * const user = 'Up Devs'
  * db.get(`playedBefore.${user}`)
@@ -145,7 +147,7 @@ get(key) {
     const JsonData = this.toJSON();
     const data = lodash.get(JsonData, key);
 
-    if (!data || data === undefined || data === null) throw new Error(`A value that was set with ${key} not found.`, 'ReferenceError')
+    if (!data || data === undefined || data === null) throw new Error(`A value that was set with ${key} not found.`, 'ReferenceError');
     return data;
 }
 
@@ -153,10 +155,10 @@ get(key) {
  * Fetches a data that was set to this database before.
  * @param {string} key - The key for this value.
  * @returns {any} Value that was set with this key.
- * @example 
+ * @example
  * //Fetch the 'weapon' value
  * db.fetch("weapon")
- * 
+ *
  * //Fetch the 'weapon' value (with a weapon specified)
  * const weapon = 'rifle'
  * db.fetch(`weapon.${weapon}`)
@@ -169,19 +171,19 @@ fetch(key) {
  * Checks if a value with this key exists.
  * @param {string} key - The key for this value.
  * @returns {boolean}
- * @example 
+ * @example
  * //Checks if exists
  * db.exists("ourLives")
  */
 exists(key) {
-    return this.toJSON().hasOwnProperty(key);
+    this.toJSON().hasOwnProperty.call(key);
 }
 
 /**
  * Checks if this database has this key.
  * @param {string} key - The key for this value.
  * @returns {boolean}
- * @example 
+ * @example
  * //Checks if this database has this key
  * db.has("goodVibes")
  */
@@ -196,7 +198,7 @@ has(key) {
  * @example
  * //Returnes all database data
  * db.all()
- * 
+ *
  * //Returnes 8 of the database data
  * db.all(8)
  */
@@ -208,7 +210,7 @@ all(limit) {
     const Array = [];
 
     for (const key in JsonData) {
-        Array.push(DBData(this, key))
+        Array.push(DBData(this, key));
     }
 
     return limit && limit > 0 ? Array.splice(0, limit) : Array;
@@ -221,16 +223,16 @@ all(limit) {
  * @example
  * //Returnes all database data
  * db.fetchAll().then(data => {
- * 
+ *
  * //...
- * 
+ *
  * })
- * 
+ *
  * //Fetches 8 of the database data
  * db.fetchAll(8).then(data => {
- * 
+ *
  * //...
- * 
+ *
  * })
  */
 fetchAll(limit) {
@@ -244,22 +246,21 @@ fetchAll(limit) {
  * @example
  * //Returnes all database data in a JSON file
  * db.toJSON()
- * 
+ *
  * //Returnes 8 of the database data in a JSON file
  * db.toJSON(8)
  */
 toJSON(limit) {
-
     const json = {};
-    
-    if (limit && typeof limit === 'number') { 
+
+    if (limit && typeof limit === 'number') {
         this.all(limit).forEach(element => {
-        json[element.key] = element.value
-        })
+        json[element.key] = element.value;
+        });
     } else {
         this.all().forEach(element => {
-        json[element.key] = element.value
-        })
+        json[element.key] = element.value;
+        });
     }
     return json;
 }
@@ -268,10 +269,10 @@ toJSON(limit) {
  * Deletes a data from this database.
  * @param {string} key - The key for this value.
  * @returns {JsonDB}
- * @example 
+ * @example
  * //Deletes gamerProfile data
  * db.delete("gamerProfile")
- * 
+ *
  * //Deletes gamerProfile data (with player specified)
  * const player = 'Ben'
  * db.delete(`gamerProfile.${player}`)
@@ -291,12 +292,12 @@ delete(key) {
  * Deletes every single data from this database.
  * @param {string} key - The key for this value.
  * @returns {void}
- * @example 
+ * @example
  * //Deletes every single data
  * db.deleteAll()
  */
 deleteAll() {
-    new Events(Constants.Events.DEBUG, `Deleting every single data from ${this.name}`, this)
+    new Events(Constants.Events.DEBUG, `Deleting every single data from ${this.name}`, this);
     writeFileSync(this.path, "{}");
     this.size = 0;
 }
@@ -324,10 +325,10 @@ type(key) {
  * @example
  * //Pushes a string to the members data
  * db.push("members", "Arthur");
- * 
+ *
  * //Pushes a number to the members data
  * db.push("members", 102);
- * 
+ *
  * //Pushes an object to the members data
  * db.push("members", {
  * name: "Arthur"
@@ -341,7 +342,7 @@ push(key, value) {
     const JsonData = this.toJSON();
     const data = lodash.get(JsonData, key);
 
-    if (!data) { 
+    if (!data) {
         this.set(key, [value]);
         return new DBData(key, value);
     }
@@ -365,10 +366,10 @@ push(key, value) {
  * @example
  * //Pulls a string from the members data
  * db.pull("members", "Arthur");
- * 
+ *
  * //Pulls a number from the members data
  * db.pull("members", 102);
- * 
+ *
  * //Pulls an object from the members data
  * db.pull("members", {
  * name: "Arthur"
@@ -379,11 +380,11 @@ pull(key, value, multiple = false) {
     if (!Util.isKey(key)) throw new Error("Invalid key specified!", "KeyError");
     if (!Util.isValue(value)) throw new Error("Invalid value specified!", "ValueError");
 
-    let data = this.get(key);
+    const data = this.get(key);
     if (!data) throw new Error(`A data with this key was not found`);
     if (!Array.isArray(data)) throw new Error(`Expected array for data, received ${typeof data}`);
 
-    let pullFunction = (element, Number, Array) => Boolean
+    let pullFunction = (element, Number, Array) => Boolean;
 
     if (value) pullFunction = pullFunction.bind(value);
     const length = data.length;
@@ -415,7 +416,7 @@ pull(key, value, multiple = false) {
  */
 valueArray() {
     const all = this.all();
-    return all.map((element) => element.value);
+    return all.map(element => element.value);
 }
 
 /**
@@ -427,7 +428,7 @@ valueArray() {
  */
 keyArray() {
     const all = this.all();
-    return all.map((element) => element.key);
+    return all.map(element => element.key);
 }
 
 /**
@@ -439,7 +440,7 @@ keyArray() {
  * @example
  * //Adds 238 to the pencil value
  * db.math("pencil", "+", 238)
- * 
+ *
  * //Subtracts 1 from the issues value
  * db.substr("issues", "-", 1)
  */
@@ -451,7 +452,7 @@ math(key, operator, value) {
 
     if (!Util.isValue(value)) throw new Error("Invalid value specified!", "ValueError");
 
-    if (typeof value !== 'string') value = Number(value)
+    if (typeof value !== 'string') value = Number(value);
 
     let data = this.get(key);
     if (!data) {
@@ -466,7 +467,7 @@ math(key, operator, value) {
         case "+":
             data += value;
             break;
-        
+
         //  -  \\
         case "sub":
         case "substr":
@@ -501,7 +502,7 @@ math(key, operator, value) {
 
     this.set(key, data);
 
-    return DBData(this, key)
+    return DBData(this, key);
 }
 
 /**
@@ -534,15 +535,15 @@ subtract(key, value) {
  * Searches for a key in this database includes this.
  * @param {string} keywords - The key (or keywords) to search.
  * @returns {DBData[]}
- * @example 
+ * @example
  * //Searches for: updev.db
  * db.includes("updev.db")
  */
 includes(keywords) {
-    if (!keywords || keywords === "") throw new Error("Keywords was not provided")
-    if (typeof keywords !== "string") throw new Error(`Expected string for keywords, received ${typeof keywords}`)
+    if (!keywords || keywords === "") throw new Error("Keywords was not provided");
+    if (typeof keywords !== "string") throw new Error(`Expected string for keywords, received ${typeof keywords}`);
 
-    return this.filter((element) => element.key.includes(keywords));
+    return this.filter(element => element.key.includes(keywords));
 }
 
 /**
@@ -554,10 +555,10 @@ includes(keywords) {
  * db.startsWith("up")
  */
 startsWith(keywords) {
-    if (!keywords || keywords === "") throw new Error("Keywords was not provided")
-    if (typeof keywords !== "string") throw new Error(`Expected string for keywords, received ${typeof keywords}`)
+    if (!keywords || keywords === "") throw new Error("Keywords was not provided");
+    if (typeof keywords !== "string") throw new Error(`Expected string for keywords, received ${typeof keywords}`);
 
-    return this.filter((element) => element.key.startsWith(keywords));
+    return this.filter(element => element.key.startsWith(keywords));
 }
 
 /**
@@ -569,7 +570,7 @@ startsWith(keywords) {
  * db.filter((element) => element.key.includes(key));
  */
 filter(filter) {
-    if (!filter || filter === "") throw new Error("Filter function was not provided")
+    if (!filter || filter === "") throw new Error("Filter function was not provided");
 
     return this.all().filter(filter);
 }
@@ -583,7 +584,7 @@ filter(filter) {
  * db.sort((a, b) => b.value < a.value);
  */
 sort(sort) {
-    if (!sort || sort === "") throw new Error("Sorting function was not provided")
+    if (!sort || sort === "") throw new Error("Sorting function was not provided");
 
     return this.all().sort(sort);
 }
@@ -593,7 +594,7 @@ sort(sort) {
  * @returns {void}
  */
 destroy() {
-    new Events(Constants.Events.DEBUG, `Destroying ${this.name}`, this)
+    new Events(Constants.Events.DEBUG, `Destroying ${this.name}`, this);
     unlinkSync(this.path);
 }
 
@@ -601,7 +602,7 @@ destroy() {
 * This method exports **JsonDB** data to **Quick.db**
 * @param {any} QuickDB Quick.db database (class)
 * @returns {void}
-* @example 
+* @example
 * //Exports to Quick.db
 * db.exportToQuickDB(QuickDB)
 */
@@ -613,7 +614,7 @@ exportToQuickDB(QuickDB) {
         QuickDB.set(element.key, element.value);
     });
 
-    new Events(Constants.Events.JSON_DB, `Exported data from ${this.name} to Quick.db`, this)
+    new Events(Constants.Events.JSON_DB, `Exported data from ${this.name} to Quick.db`, this);
 }
 
 /**
@@ -625,13 +626,13 @@ exportToQuickDB(QuickDB) {
  * db._eval("console.log(this.all())")
  */
 _eval(code) {
-    if (!code || code === "") throw new Error("Code was not provided")
-    if (typeof code !== "string") throw new Error(`Expected string for code, received ${typeof code}`)
+    if (!code || code === "") throw new Error("Code was not provided");
+    if (typeof code !== "string") throw new Error(`Expected string for code, received ${typeof code}`);
 
-    new Events(Constants.Events.DEBUG, `Evaling \`${code}\` in ${this.name}`, this)
+    new Events(Constants.Events.DEBUG, `Evaling \`${code}\` in ${this.name}`, this);
 
     return eval(code);
 }
 }
 
-module.exports = JsonDB
+module.exports = JsonDB;

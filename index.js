@@ -15,8 +15,8 @@ module.exports = {
     // Managers
     Schema: require("./src/manager/Schema"),
 
-    //Structures
+    // Structures
     Colorful: require("./src/structures/Colorful"),
-    
-    version: require("./package.json").version
+
+    version: require("./package.json").version,
 };

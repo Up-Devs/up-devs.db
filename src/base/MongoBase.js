@@ -12,7 +12,6 @@ const { MongoConnectionState } = require('../util/Constants');
  * Used by {@link MongoDB} class. **Don't use it yourself!**
  */
 class MongoBase extends EventEmitter {
-
     /**
      * Creates a Mongo database.
      * Used by {@link MongoDB} class. **Don't use it yourself!**
@@ -22,14 +21,14 @@ class MongoBase extends EventEmitter {
      * const { MongoBase } = require('up-devs.db');
      * const db = new MongoBase('mongodb://localhost/up-devs.db', 'up-devs')
      */
-    constructor(mongoURL, connectionOptions={}) {
+    constructor(mongoURL, connectionOptions = {}) {
         super();
         if (!mongoURL || !mongoURL.startsWith("mongodb")) throw new Error("No mongodb url was provided!");
         if (typeof mongoURL !== "string") throw new Error(`Expected a string for mongoURL, received ${typeof mongoURL}`);
         if (connectionOptions && typeof connectionOptions !== "object") throw new Error(`Expected Object for connectionOptions, received ${typeof connectionOptions}`);
 
         Object.defineProperty(this, "dbURL", {
-            value: mongoURL
+            value: mongoURL,
         });
 
         /**
@@ -44,7 +43,7 @@ class MongoBase extends EventEmitter {
          */
         this.connection = this._create();
 
-        this.connection.on("error", (e) => {
+        this.connection.on("error", e => {
             new Events("error", e, this);
         });
         this.connection.on("open", () => {
@@ -68,13 +67,13 @@ class MongoBase extends EventEmitter {
         if (url && typeof url === "string") this.dbURL = url;
         if (!this.dbURL || typeof this.dbURL !== "string") throw new Error("Database url was not provided!", "MongoError");
 
-        delete this.options["useUnique"];
+        delete this.options.useUnique;
 
         return mongoose.createConnection(this.dbURL, {
             ...this.options,
             useNewUrlParser: true,
             useUnifiedTopology: true,
-            useCreateIndex: true
+            useCreateIndex: true,
         });
     }
 
@@ -89,7 +88,7 @@ class MongoBase extends EventEmitter {
         this.dbURL = null;
         new Events("debug", "Database disconnected.", this);
     }
-    
+
     /**
      * Returns this database's Mongo url.
      * @type {string}
@@ -104,7 +103,7 @@ class MongoBase extends EventEmitter {
      */
     get state() {
         if (!this.connection || typeof this.connection.readyState !== "number") return "DISCONNECTED";
-        switch(this.connection.readyState) {
+        switch (this.connection.readyState) {
             case 0:
                 return "DISCONNECTED";
             case 1:
