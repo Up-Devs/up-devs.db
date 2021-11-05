@@ -21,6 +21,7 @@ const JsonDB = require('../base/JsonDB');
  */
 
 /**
+* The latency data for a database.
 * @typedef {Object} DatabaseLatency
 * @property {number} read - This database's read latency.
 * @property {number} write - This database's write latency.
@@ -28,12 +29,14 @@ const JsonDB = require('../base/JsonDB');
 */
 
 /**
+* The options for importing datas to MongoDB.
 * @typedef {Object} MongoImportOptions
 * @param {boolean} [validate] - Choice for importing the valid documents only.
 * @param {boolean} [unique] - Choice for importing unique datas.
 */
 
 /**
+* The parsed key for MongoDB.
 * @typedef {Object} MongoKey
 * @property {string|void} key Parsed Key
 * @property {string|void} target Parsed target
