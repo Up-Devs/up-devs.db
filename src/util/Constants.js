@@ -18,6 +18,7 @@ const JsonDB = require('../base/JsonDB');
  * * `CONNECTING`
  * * `DISCONNECTING`
  * @typedef {string} MongoConnectionState
+ * @see {@link https://mongoosejs.com/docs/api.html#connection_Connection-readyState Mongoose Docs}
  */
 
 /**
