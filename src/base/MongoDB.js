@@ -495,7 +495,7 @@ class MongoDB extends Base {
      * Searches for a key in this database starts with this.
      * @param {string} keywords - The key (or keywords) to search.
      * @param {Object} options - Filtering options.
-     * @returns {Promise<MongoData[]>}
+     * @returns {Promise<any[]>}
      * @example
      * //Searches for: updev.db
      * db.startsWith("up")
