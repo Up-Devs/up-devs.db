@@ -28,6 +28,12 @@ const JsonDB = require('../base/JsonDB');
 */
 
 /**
+* @typedef {Object} MongoImportOptions
+* @param {boolean} [validate] - Choice for importing the valid documents only.
+* @param {boolean} [unique] - Choice for importing unique datas.
+*/
+
+/**
 * @typedef {Object} MongoKey
 * @property {string|void} key Parsed Key
 * @property {string|void} target Parsed target
