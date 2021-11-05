@@ -5,7 +5,7 @@ const fs = require("fs");
 const Util = require("../util/Util");
 const DBData = require('../manager/DBData');
 
-const { DatabaseLatency, MathOperator } = require('../util/Constants');
+const { DatabaseLatency, MathOperator, MongoImportOptions } = require('../util/Constants');
 const Constants = require('../util/Constants');
 
 const MongooseDocument = require('mongoose').Document;
@@ -388,9 +388,7 @@ class MongoDB extends Base {
      *
      * <warn>You should set `useUnique` to `true` in order to avoid duplicate documents.</warn>
      * @param {Array} data - The data array to be imported.
-     * @param {object} options - MongoDB importing options.
-     * @param {boolean} [options.validate=false] - Choice for importing the valid documents only.
-     * @param {boolean} [options.unique=false] - Choice for importing unique datas.
+     * @param {MongoImportOptions} options - MongoDB importing options.
      * @returns {Promise<boolean>}
      * @example
      * //Imports from Quick.db to MongoDB
@@ -466,7 +464,7 @@ class MongoDB extends Base {
 
     /**
      * Fetches read and write latency of this database in miliseconds.
-     * @returns {Promise<Constants.DatabaseLatency>}
+     * @returns {Promise<DatabaseLatency>}
      * @example
      * const ping = await db.fetchLatency();
      * console.log("Read: ", ping.read);
@@ -482,7 +480,7 @@ class MongoDB extends Base {
 
     /**
      * Fetches read and write latency of this database in miliseconds.
-     * @returns {Promise<Constants.DatabaseLatency>}
+     * @returns {Promise<DatabaseLatency>}
      * @example
      * const ping = await db.fetchLatency();
      * console.log("Read: ", ping.read);
@@ -497,7 +495,7 @@ class MongoDB extends Base {
      * Searches for a key in this database starts with this.
      * @param {string} keywords - The key (or keywords) to search.
      * @param {Object} options - Filtering options.
-     * @returns {Promise<Constants.MongoData[]>}
+     * @returns {Promise<MongoData[]>}
      * @example
      * //Searches for: updev.db
      * db.startsWith("up")
