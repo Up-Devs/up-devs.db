@@ -31,6 +31,9 @@ class JsonDB extends EventEmitter {
  */
 constructor(dbName, options) {
     super();
+    
+    if (!dbName) throw new Error('Database name (dbName) was not provided')
+    if (typeof dbName !== 'string') throw new Error(`Expected string for database name (dbName), received ${typeof dbName}`)
 
     let bP = process.cwd();
 
