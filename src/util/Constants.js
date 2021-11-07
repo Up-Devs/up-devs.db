@@ -32,13 +32,13 @@ const JsonDB = require('../base/JsonDB');
 /**
  * The options for importing datas for a database.
  * @typedef {Object} ImportOptions
- * @param {boolean} [validate] - Choice for importing the valid documents only.
+ * @property {boolean} [validate] - Choice for importing the valid documents only.
  */
 
 /**
  * The options for importing datas to MongoDB.
  * @typedef {ImportOptions} MongoImportOptions
- * @param {boolean} [unique] - Choice for importing unique datas.
+ * @property {boolean} [unique] - Choice for importing unique datas.
  */
 
 /**
