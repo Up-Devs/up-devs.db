@@ -23,8 +23,8 @@ class MongoDB extends Base {
 
     /**
      * Creates a Mongo database.
-     * @param {string} [mongoURL=none] - The Mongo url for this database.
-     * @param {string} [name=none] - The Mongo model name for this database.
+     * @param {string} [mongoURL=''] - The Mongo url for this database.
+     * @param {string} [name=''] - The Mongo model name for this database.
      * @param {MongoDBOptions} [options={}] - Mongo database options.
      * @example
      * const { MongoDB } = require('up-devs.db');
