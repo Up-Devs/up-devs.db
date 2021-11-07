@@ -535,6 +535,33 @@ subtract(key, value) {
 }
 
 /**
+* Imports datas from other sources to this database.
+*
+* <warn>You should set `useUnique` to `true` in order to avoid duplicate documents.</warn>
+* @param {Array} data - The data array to be imported.
+* @param {ImportOptions} options - JsonDB importing options.
+* @returns {Promise<boolean>}
+* @example
+* //Imports from Quick.db to JsonDB
+* const data = QuickDB.all();
+* db.import(data);
+*/
+import(data = [], options = { validate: false }) {
+    return new Promise((resolve, reject) => {
+       if (!Array.isArray(data)) return reject(new Error(`Data type must be Array, received ${typeof data}!`, "DataTypeError"));
+       if (data.length < 1) return resolve(false);
+          data.forEach((x, i) => {
+          if (!options.validate && (!x.ID || !x.data)) return;
+          else if (!!options.validate && (!x.ID || !x.data)) return reject(new Error(`Data is missing ${!x.ID ? "ID" : "data"} path!`, "DataImportError"));
+          setTimeout(() => {
+             this.set(x.ID, x.data);
+          }, 150 * (i + 1));
+        });
+       return resolve(true);
+  });
+}
+
+/**
  * Searches for a key in this database includes this.
  * @param {string} keywords - The key (or keywords) to search.
  * @returns {DBData[]}
