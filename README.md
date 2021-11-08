@@ -28,7 +28,8 @@ Up-Devs.DB is an useful data-base for your projects. Save your datas in JSON fil
 npm i up-devs.db
 ```
 
-* Read our [docs](https://updevs-db.js.org)
+* Read our [docs](https://updevs-db.js.org/docs)
+* Take a look in our [guide](https://updevs-db.js.org/guide)
 
 ## Example
 
