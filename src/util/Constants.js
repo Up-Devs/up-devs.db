@@ -38,7 +38,7 @@ const JsonDB = require('../base/JsonDB');
 /**
  * The base options for database constructors.
  * @typedef {Object} BaseDBOptions
- * @param {boolean} consoleEvents - Should the events that emitted should be logged in the console?
+ * @param {boolean} [consoleEvents=false] - Should the events that emitted should be logged in the console?
  */
 
 /**
