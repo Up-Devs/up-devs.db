@@ -652,9 +652,9 @@ exportToQuickDB(QuickDB) {
  * @returns {any}
  * @example
  * //Consoles every single data
- * db._eval("console.log(this.all())")
+ * db.__eval("console.log(this.all())")
  */
-_eval(code) {
+__eval(code) {
     if (!code || code === "") throw new Error("Code was not provided");
     if (typeof code !== "string") throw new Error(`Expected string for code, received ${typeof code}`);
 
