@@ -41,7 +41,7 @@ class MongoBase extends EventEmitter {
          * Returns mongodb connection
          * @type {MongooseConnection}
          */
-        this.connection = this._create();
+        this.connection = this.__create();
 
         this.connection.on("error", e => {
             new Events("error", e, this);
@@ -59,9 +59,9 @@ class MongoBase extends EventEmitter {
     /**
      * Creates a MongoDB connection for this base.
      * @returns {MongooseConnection}
-     * @ignore
+     * @private
      */
-    _create(url) {
+    __create(url) {
         new Events("debug", "Creating database connection...", this);
 
         if (url && typeof url === "string") this.dbURL = url;
@@ -79,10 +79,10 @@ class MongoBase extends EventEmitter {
 
     /**
      * Destroys this database.
-     * @ignore
+     * @private
      * @returns {void}
      */
-    _destroyDatabase() {
+    __destroyDatabase() {
         this.connection.close(true);
         this.readyAt = undefined;
         this.dbURL = null;
