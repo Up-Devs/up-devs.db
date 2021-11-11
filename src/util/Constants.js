@@ -36,6 +36,12 @@ const JsonDB = require('../base/JsonDB');
  */
 
 /**
+ * The base options for database constructors.
+ * @typedef {Object} BaseDBOptions
+ * @param {boolean} consoleEvents - Should the events that emitted should be logged in the console?
+ */
+
+/**
  * The options for importing datas to MongoDB.
  * @typedef {ImportOptions} MongoImportOptions
  * @property {boolean} [unique] - Choice for importing unique datas.
