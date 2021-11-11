@@ -35,7 +35,7 @@ npm i up-devs.db
 
 ```js
 const { MongoDB, JsonDB } = require('up-devs.db');
-const db = new MongoDB('mongodb+srv://up-devs/updevs.db')
+const db = new MongoDB('mongodb+srv://up-devs/updevs.db', { name: 'up-devs.db', consoleEvents: true })
 // or
 const db = new JsonDB('updevs-db')
 
