@@ -3,7 +3,7 @@ const path = require('path');
 const { unlinkSync, existsSync, readFileSync, mkdirSync, writeFileSync } = require("fs");
 const lodash = require("lodash");
 const DBData = require('../manager/DBData');
-const { MathOperator } = require('../util/Constants');
+const { MathOperator, BaseDBOptions } = require('../util/Constants');
 
 const Constants = require('../util/Constants');
 const Util = require('../util/Util');
@@ -17,8 +17,7 @@ const Events = require('../manager/Events');
 class JsonDB extends EventEmitter {
 /**
  * Json database options.
- * @typedef {Object} JsonDBOptions
- * @param {boolean} consoleEvents - Should the events that emitted should be logged in the console?
+ * @typedef {BaseDBOptions} JsonDBOptions
  */
 
 /**
