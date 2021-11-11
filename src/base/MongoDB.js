@@ -1,4 +1,4 @@
-const Base = require("./MongoBase");
+const MongoBase = require("./MongoBase");
 const Schema = require("../manager/Schema");
 const Error = require("../Error");
 const fs = require("fs");
@@ -14,29 +14,36 @@ const Events = require('../manager/Events');
 /**
  * Stores values in a Mongo database.
  */
-class MongoDB extends Base {
+class MongoDB extends MongoBase {
     /**
      * Mongo database constructor options.
      * @typedef {BaseDBOptions} MongoDBOptions
+     * @param {string} [name=''] - The Mongo model name for this database.
      */
 
     /**
      * Creates a Mongo database.
-     * @param {string} [mongoURL=''] - The Mongo url for this database.
+     * @param {string} mongoURL - The Mongo url for this database.
      * @param {string} [name=''] - The Mongo model name for this database.
      * @param {MongoDBOptions} [options={}] - Mongo database options.
      * @example
      * const { MongoDB } = require('up-devs.db');
-     * const db = new MongoDB('mongodb://localhost/up-devs.db', 'up-devs')
+     * const db = new MongoDB('mongodb://localhost/up-devs.db', { name: 'up-devs' })
      */
     constructor(mongoURL, name, options) {
         super(mongoURL || null);
+        
+        /**
+         * This database's options.
+         * @type {MongoDBOptions}
+         */
+        this.options = options ? options : null;
 
         /**
          * The model for this database.
          * @type {MongooseDocument}
          */
-        this.schema = Schema(this.connection, name);
+        this.schema = Schema(this.connection, options.name);
 
         /**
          * This database's name.
@@ -44,12 +51,6 @@ class MongoDB extends Base {
          * @readonly
          */
         this.name = this.schema.modelName;
-
-        /**
-         * This database's options.
-         * @type {MongoDBOptions}
-         */
-        this.options = options ? options : null;
 
        /**
         * This database's uptime duration in miliseconds.
