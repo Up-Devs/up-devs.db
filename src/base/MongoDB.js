@@ -32,7 +32,7 @@ class MongoDB extends MongoBase {
      */
     constructor(mongoURL, name, options) {
         super(mongoURL || null);
-        
+
         /**
          * This database's options.
          * @type {MongoDBOptions}
