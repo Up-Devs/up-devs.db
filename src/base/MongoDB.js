@@ -426,7 +426,7 @@ class MongoDB extends MongoBase {
      */
     disconnect() {
         new Events(Constants, "Database disconnecting...", this);
-        return this._destroyDatabase();
+        return this.__destroyDatabase();
     }
 
     /**
@@ -435,7 +435,7 @@ class MongoDB extends MongoBase {
      * @returns {void}
      */
     connect(url) {
-        return this._create(url);
+        return this.__create(url);
     }
 
     /**
@@ -444,7 +444,7 @@ class MongoDB extends MongoBase {
      * @private
      * @returns {Promise<number>}
      */
-    async _read() {
+    async __read() {
         const start = Date.now();
         await this.get("LQ==");
         return Date.now() - start;
@@ -456,7 +456,7 @@ class MongoDB extends MongoBase {
      * @private
      * @returns {Promise<number>}
      */
-    async _write() {
+    async __write() {
         const start = Date.now();
         await this.set("LQ==", Buffer.from(start.toString()).toString("base64"));
         return Date.now() - start;
@@ -472,8 +472,8 @@ class MongoDB extends MongoBase {
      * console.log("Average: ", ping.average);
      */
     async fetchLatency() {
-        const read = await this._read();
-        const write = await this._write();
+        const read = await this.__read();
+        const write = await this.__write();
         const average = (read + write) / 2;
         return { read, write, average };
     }
@@ -705,9 +705,9 @@ class MongoDB extends MongoBase {
      * @returns {any}
      * @example
      * //Consoles every single data
-     * db._eval("console.log(this.all())")
+     * db.__eval("console.log(this.all())")
      */
-    _eval(code) {
+    __eval(code) {
         return eval(code);
     }
 }
