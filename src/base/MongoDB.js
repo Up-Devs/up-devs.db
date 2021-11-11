@@ -5,7 +5,7 @@ const fs = require("fs");
 const Util = require("../util/Util");
 const DBData = require('../manager/DBData');
 
-const { DatabaseLatency, MathOperator, MongoImportOptions } = require('../util/Constants');
+const { DatabaseLatency, MathOperator, MongoImportOptions, BaseDBOptions } = require('../util/Constants');
 const Constants = require('../util/Constants');
 
 const MongooseDocument = require('mongoose').Document;
@@ -16,9 +16,8 @@ const Events = require('../manager/Events');
  */
 class MongoDB extends Base {
     /**
-     * Mongo database options.
-     * @typedef {Object} MongoDBOptions
-     * @param {boolean} consoleEvents - Should the events that emitted should be logged in the console?
+     * Mongo database constructor options.
+     * @typedef {BaseDBOptions} MongoDBOptions
      */
 
     /**
